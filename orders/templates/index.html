@@ -45,69 +45,70 @@
     </style>
 </head>
     <body>
+      <a href="{% url 'mycart' %}">Cart</a>
 
-    <h2>Menu</h2>
+      <h2>Menu</h2>
 
-    <div class="tab">
-      <button class="tablinks" onclick="openCat(event, 'Pizza')">Pizza</button>
-      <button class="tablinks" onclick="openCat(event, 'Pasta')">Pasta</button>
-      <button class="tablinks" onclick="openCat(event, 'Salad')">Salad</button>
-    </div>
+      <div class="tab">
+        <button class="tablinks active" onclick="openCat(event, 'Pizza')">Pizza</button>
+        <button class="tablinks" onclick="openCat(event, 'Pasta')">Pasta</button>
+        <button class="tablinks" onclick="openCat(event, 'Salad')">Salad</button>
+      </div>
 
-    <div id="Pizza" class="tabcontent">
-      <table style="width:50%; text-align: center;">
-        <tr>
-          <th>Name</th>
-          <th>Price (EGP)</th>
-        </tr>
-        <tr>
-          <td>Chicken runch</td>
-          <td>50</td>
-          <td><button>Add to cart</button></td>
-        </tr>
-        <tr>
-          <td>Chicken runch</td>
-          <td>50</td>
-          <td><button>Add to cart</button></td>
-        </tr>
-        <tr>
-          <td>Chicken runch</td>
-          <td>50</td>
-          <td><button>Add to cart</button></td>
-        </tr>
-      </table>
-    </div>
+      <div id="Pizza" class="tabcontent" style="display: block">
+        <table style="width:50%; text-align: center;">
+          <tr>
+            <th>Name</th>
+            <th>Price (EGP)</th>
+          </tr>
+          <tr>
+            <td>Chicken runch</td>
+            <td>50</td>
+            <td><button>Add to cart</button></td>
+          </tr>
+          <tr>
+            <td>Chicken runch</td>
+            <td>50</td>
+            <td><button>Add to cart</button></td>
+          </tr>
+          <tr>
+            <td>Chicken runch</td>
+            <td>50</td>
+            <td><button>Add to cart</button></td>
+          </tr>
+        </table>
+      </div>
 
-    <div id="Pasta" class="tabcontent">
-      <table style="width:50%; text-align: center;">
-        <tr>
-          <th>Name</th>
-          <th>Price (EGP)</th>
-        </tr>
-        <tr>
-          <td>pakaka dassa</td>
-          <td>30</td>
-          <td><button>Add to cart</button></td>
-        </tr>
-      </table>
-    </div>
+      <div id="Pasta" class="tabcontent">
+        <table style="width:50%; text-align: center;">
+          <tr>
+            <th>Name</th>
+            <th>Price (EGP)</th>
+          </tr>
+          <tr>
+            <td>pakaka dassa</td>
+            <td>30</td>
+            <td><button>Add to cart</button></td>
+          </tr>
+        </table>
+      </div>
 
-    <div id="Salad" class="tabcontent">
-      <table style="width:50%; text-align: center;">
-        <tr>
-          <th>Name</th>
-          <th>Price (EGP)</th>
-        </tr>
-        <tr>
-          <td>Kolslo</td>
-          <td>20</td>
-          <td><button>Add to cart</button></td>
-        </tr>
-      </table>
-    </div>
+      <div id="Salad" class="tabcontent">
+        <table style="width:50%; text-align: center;">
+          <tr>
+            <th>Name</th>
+            <th>Price (EGP)</th>
+          </tr>
+          <tr>
+            <td>Kolslo</td>
+            <td>20</td>
+            <td><button>Add to cart</button></td>
+          </tr>
+        </table>
+      </div>
 
     <script>
-      function openCat  (evt, category) {
+      function openCat (evt, category) {
         var i, tabcontent, tablinks;
         tabcontent = document.getElementsByClassName("tabcontent");
         for (i = 0; i < tabcontent.length; i++) {
