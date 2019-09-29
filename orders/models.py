@@ -22,3 +22,5 @@ class Orders(models.Model):
     status = models.CharField(max_length=10, choices=(('c', 'completed'),('p','pending')))
     def __str__(self):
         return self.id
+
+
