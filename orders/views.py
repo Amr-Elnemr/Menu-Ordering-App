@@ -5,7 +5,6 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from .models import Items
 from django.db import IntegrityError
-import json
 
 # Create your views here.
 def home(request):
@@ -48,3 +47,22 @@ def index(request):
 @login_required()
 def mycart(request):
     return render(request, "mycart.html")
+
+
+### Add to database from Menu via Beautiful Soap ###
+# import urllib.request
+# import math
+# from bs4 import BeautifulSoup
+# def test(request):
+#     fhand = urllib.request.urlopen('http://www.pinocchiospizza.net/menu.html')
+#     html = fhand.read()
+#     soap = BeautifulSoup(html, 'html.parser')
+#     table = soap('table', class_="foodmenu")[4]#.prettify()sds
+#     name_trs = table.find_all(attrs={"style": "text-align: left;"})
+#     price_trs = table.find_all(attrs={"width": "25%"})
+#     for p in range(len(price_trs)):
+#         # i = Items(name="kk", price="8", category="pi").save()
+#         Items(name=name_trs[p].get_text(), price=math.ceil(float(price_trs[p].get_text())), category="sa").save()
+#         # print(name_trs[p].get_text())
+#         # print(price_trs[p].get_text())
+#     return HttpResponse(table)
