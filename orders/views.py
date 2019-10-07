@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from .models import Items
 from django.db import IntegrityError
+import json
 
 # Create your views here.
 def home(request):
@@ -37,7 +38,7 @@ def register(request):
 @login_required()
 def index(request):
     # return HttpResponse("Project 3: TODO")
-
+    print(type(request))
     piArray = Items.objects.filter(category='pi')
     paArray = Items.objects.filter(category='pa')
     saArray = Items.objects.filter(category='sa')
