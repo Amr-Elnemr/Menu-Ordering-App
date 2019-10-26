@@ -35,25 +35,43 @@
         <tr>
           <th>Name</th>
           <th>Price (EGP)</th>
+          <th>Status</th>
         </tr>
+        {% for order in orders %}
         <tr>
+          <td>{{order.item_id.name}}</td>
+          <td>{{order.item_id.price}}</td>
+          {% if order.status == 'c' %}
+            <td>Completed</td>
+          {% else %}
+            <td>Pending</td>
+          {% endif %}
+          <td><button id="{{order.id}}"> - </button></td>
+        </tr>
+        {% endfor %}
+        <!-- <tr>
           <td>Chicken runch</td>
           <td>50</td>
+          <td>pending</td>
           <td><button> - </button></td>
         </tr>
         <tr>
           <td>Chicken runch</td>
           <td>50</td>
+          <td>pending</td>
           <td><button>-</button></td>
         </tr>
         <tr>
           <td>Chicken runch</td>
           <td>50</td>
+          <td>pending</td>
           <td><button>-</button></td>
-        </tr>
+        </tr> -->
+
+
         <tr>
           <td><h3>Total</h3></td>
-          <td>150</td>
+          <td>{{total}}</td>
         </tr>
         <tr>
           <td></td>

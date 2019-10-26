@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <title>Home</title>
     <style>
     body {font-family: Arial;}
@@ -45,7 +46,7 @@
     </style>
 </head>
     <body>
-      <a href="{% url 'mycart' %}">Cart</a>
+      <a href="{% url 'mycart' %}">Cart <b id="cartCount">({{cart_Count}})</b></a>
 
       <a href="{% url 'signout' %}" style="position:absolute;top:10;right:10pt;">Logout</a>
 
@@ -68,7 +69,8 @@
           <tr>
             <td>{{pizza.name}}</td>
             <td>{{pizza.price}}</td>
-            <td><button>Add to cart</button></td>
+            <td><button onclick="addToCart(event,{{pizza.id}})" style="cursor: pointer">Add to cart</button>
+            </td>
           </tr>
           {% endfor%}
 
@@ -85,7 +87,7 @@
           <tr>
             <td>{{pasta.name}}</td>
             <td>{{pasta.price}}</td>
-            <td><button>Add to cart</button></td>
+            <td><button onclick="addToCart(event,{{pasta.id}})" style="cursor: pointer">Add to cart</button></td>
           </tr>
           {% endfor%}
         </table>
@@ -101,7 +103,7 @@
           <tr>
             <td>{{salad.name}}</td>
             <td>{{salad.price}}</td>
-            <td><button>Add to cart</button></td>
+            <td><button onclick="addToCart(event,{{salad.id}})" style="cursor: pointer">Add to cart</button></td>
           </tr>
           {% endfor%}
         </table>
@@ -120,6 +122,17 @@
         }
         document.getElementById(category).style.display = "block";
         evt.currentTarget.className += " active";
+      }
+
+      function addToCart(evt, id) {
+        $.post("http://127.0.0.1:8000/add_to_cart",
+          {
+            item_id: id,
+            csrfmiddlewaretoken: document.cookie.split("=")[1]
+          },
+          function(data){
+            document.querySelector("#cartCount").innerText = "("+ data +")"
+          });
       }
     </script>
 </body>

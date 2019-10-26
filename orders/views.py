@@ -3,9 +3,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
-from .models import Items
+from .models import Items, Orders
 from django.db import IntegrityError
-import json
+# from django.db.models import Sum
+# import json
 
 # Create your views here.
 def home(request):
@@ -37,17 +38,32 @@ def register(request):
 
 @login_required()
 def index(request):
-    # return HttpResponse("Project 3: TODO")
-    print(type(request))
     piArray = Items.objects.filter(category='pi')
     paArray = Items.objects.filter(category='pa')
     saArray = Items.objects.filter(category='sa')
-    context = {'piArray':piArray, 'paArray':paArray, 'saArray':saArray}
+    NumOfItems = Orders.objects.filter(user_id=request.user.id).count()
+    context = {'piArray':piArray, 'paArray':paArray, 'saArray':saArray, "cart_Count":NumOfItems}
     return render(request, "index.html", context)
 
 @login_required()
 def mycart(request):
-    return render(request, "mycart.html")
+    orders = Orders.objects.filter(user_id = request.user.id)
+    Total = 0
+    for order in orders:
+        Total = Total + order.item_id.price
+    context = {'orders': orders, 'total': Total}
+
+    return render(request, "mycart.html", context)
+
+@login_required()
+def add_to_cart(request):
+    current_user = User.objects.filter(id=request.user.id).get()
+    target_item = Items.objects.filter(id=request.POST['item_id']).get()
+    new_order = Orders(user_id=current_user, item_id=target_item, status='p')
+    new_order.save()
+    NumOfItems = Orders.objects.filter(user_id=request.user.id).count()
+    return HttpResponse(NumOfItems)
+
 
 
 ### Add to database from Menu via Beautiful Soap ###

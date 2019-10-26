@@ -21,6 +21,6 @@ class Orders(models.Model):
     item_id = models.ForeignKey(Items, on_delete = models.CASCADE)
     status = models.CharField(max_length=10, choices=(('c', 'completed'),('p','pending')))
     def __str__(self):
-        return self.id
+        return f"{str(self.id)} - {User.objects.all().filter(id=int(self.user_id.id)).first().username}"
 
 
