@@ -64,7 +64,11 @@ def add_to_cart(request):
     NumOfItems = Orders.objects.filter(user_id=request.user.id).count()
     return HttpResponse(NumOfItems)
 
-
+@login_required()
+def remove_from_cart(request):
+    target_order_id = request.POST['order_id']
+    Orders.objects.filter(id=target_order_id).delete()
+    return HttpResponse("Item successfully deleted")
 
 ### Add to database from Menu via Beautiful Soap ###
 # import urllib.request

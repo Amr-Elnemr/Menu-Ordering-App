@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <title>Cart</title>
     <style>
 		#Checkout {
@@ -25,6 +26,10 @@
 		  color: black;	
 		}
 
+    button{
+      cursor: pointer;
+    }
+
 	</style>
 </head>
 <body>
@@ -46,29 +51,16 @@
           {% else %}
             <td>Pending</td>
           {% endif %}
-          <td><button id="{{order.id}}"> - </button></td>
+          <td><button onclick="removeItem(event, {{order.id}})"> - </button></td>
         </tr>
         {% endfor %}
-        <!-- <tr>
+  <!--       <tr>
           <td>Chicken runch</td>
           <td>50</td>
           <td>pending</td>
           <td><button> - </button></td>
-        </tr>
-        <tr>
-          <td>Chicken runch</td>
-          <td>50</td>
-          <td>pending</td>
-          <td><button>-</button></td>
-        </tr>
-        <tr>
-          <td>Chicken runch</td>
-          <td>50</td>
-          <td>pending</td>
-          <td><button>-</button></td>
         </tr> -->
-
-
+  
         <tr>
           <td><h3>Total</h3></td>
           <td>{{total}}</td>
@@ -79,5 +71,29 @@
         </tr>
       </table>
 
+  <script>
+    function removeItem(evt, id) {
+      $.ajax({
+          url: 'http://127.0.0.1:8000/remove_from_cart',
+          type: 'POST',
+          data:{
+            order_id: id,
+            csrfmiddlewaretoken: document.cookie.split("=")[1]
+          },
+          success: function() {
+            evt.target.parentElement.parentElement.remove()
+          }
+      });
+      // $.delete("http://127.0.0.1:8000/remove_from_cart",
+      //   {
+      //     order_id: id,
+      //     csrfmiddlewaretoken: document.cookie.split("=")[1]
+      //   },
+      //   function(){
+      //     evt.target.parentElement.remove()
+      //   });
+      
+    }
+  </script>
 </body>
 </html>
