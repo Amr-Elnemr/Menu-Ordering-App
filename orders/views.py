@@ -5,27 +5,39 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from .models import Items, Orders
 from django.db import IntegrityError
-# from django.db.models import Sum
-# import json
-
+from django.views import View
 # Create your views here.
-def home(request):
-    return render(request, "Registration.html")
+# def home(request):
+#     return render(request, "Registration.html")
+class Home(View):
+    def get(self, request):
+        return render(request, "Registration.html")
 
 def signout(request):
     logout(request)
-    return redirect(signin)
+    return redirect("signin")
 
-def signin(request):
-    if request.method == 'GET':
-        return render(request, 'Login.html', {"no_user":False})
-    username = request.POST["username"]
-    password = request.POST["psw"]
-    user = authenticate(username=username, password=password)
-    if user is not None:
-        login(request, user)
-        return redirect(index)
-    return render(request, "Login.html", {"no_user":True})
+# def signin(request):
+#     if request.method == 'GET':
+#         return render(request, 'Login.html', {"no_user":False})
+#     username = request.POST["username"]
+#     password = request.POST["psw"]
+#     user = authenticate(username=username, password=password)
+#     if user is not None:
+#         login(request, user)
+#         return redirect(index)
+#     return render(request, "Login.html", {"no_user":True})
+class SignIn(View):
+    def get(self, request):
+        return render(request, 'Login.html', {"no_user": False})
+    def post(self, request):
+        username = request.POST["username"]
+        password = request.POST["psw"]
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect(index)
+        return render(request, "Login.html", {"no_user": True})
 
 def register(request):
     username = request.POST["username"]
