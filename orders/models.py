@@ -13,7 +13,7 @@ class Items(models.Model):
     price = models.IntegerField()
     category = models.CharField(max_length=5, choices=(('pi', 'pizza'),('pa', 'pasta'),('sa', 'salad')))
     def __str__(self):
-        return self.name
+        return f"{self.id} - {self.name}"
 
 
 class Orders(models.Model):

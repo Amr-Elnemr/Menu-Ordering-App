@@ -10,7 +10,7 @@ urlpatterns = [
     path("signin",           views.signin,           name = "signin"),
     path("signout",          views.signout,          name = "signout"),
     path("add_to_cart",      views.add_to_cart,      name = "add_to_cart"),
-    path("remove_from_cart", views.remove_from_cart, name="remove_from_cart"),
+    path("remove_from_cart", views.remove_from_cart, name = "remove_from_cart"),
 
     # path("test",     views.test,    name = "test") #used once to add data using beautiful soap
 ]

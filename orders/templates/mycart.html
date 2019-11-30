@@ -1,36 +1,12 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'orders/styles.css' %}">
     <title>Cart</title>
-    <style>
-		#Checkout {
-		  display: inline-block;
-		  padding: 10px 25px;
-		  font-size: 18px;
-		  cursor: pointer;
-		  text-align: center;
-		  text-decoration: none;
-		  outline: none;
-		  color: #fff;
-		  background-color: #4CAF50;
-		  border: none;
-		  border-radius: 15px;
-		}
-
-		#Checkout:hover {background-color: #3e8e41}
-
-		#Checkout:active {
-		  background-color: gray;
-		  color: black;	
-		}
-
-    button{
-      cursor: pointer;
-    }
-
-	</style>
 </head>
 <body>
 	<a href="{% url 'index' %}">Home</a>
