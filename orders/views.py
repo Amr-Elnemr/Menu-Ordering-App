@@ -6,6 +6,8 @@ from django.shortcuts import render, redirect
 from .models import Items, Orders
 from django.db import IntegrityError
 from django.views import View
+from django.views.generic import ListView
+from django.utils.decorators import method_decorator
 # Create your views here.
 # def home(request):
 #     return render(request, "Registration.html")
@@ -57,15 +59,30 @@ def index(request):
     context = {'piArray':piArray, 'paArray':paArray, 'saArray':saArray, "cart_Count":NumOfItems}
     return render(request, "index.html", context)
 
-@login_required()
-def mycart(request):
-    orders = Orders.objects.filter(user_id = request.user.id)
-    Total = 0
-    for order in orders:
-        Total = Total + order.item_id.price
-    context = {'orders': orders, 'total': Total}
+# @login_required()
+# def mycart(request):
+#     orders = Orders.objects.filter(user_id = request.user.id)
+#     Total = 0
+#     for order in orders:
+#         Total = Total + order.item_id.price
+#     context = {'orders': orders, 'total': Total}
+#     return render(request, "mycart.html", context)
+@method_decorator(login_required, name='dispatch')
+class MyCart(ListView):
+    template_name = 'mycart.html'
+    def get_queryset(self):
+        orders = Orders.objects.filter(user_id = self.request.user.id)
+        return orders
 
-    return render(request, "mycart.html", context)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        Total = 0
+        for order in context['object_list']:
+            Total = Total + order.item_id.price
+        context['total'] = Total
+        return context
+
+
 
 @login_required()
 def add_to_cart(request):

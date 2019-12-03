@@ -18,7 +18,7 @@
           <th>Price (EGP)</th>
           <th>Status</th>
         </tr>
-        {% for order in orders %}
+        {% for order in orders_list %}
         <tr>
           <td>{{order.item_id.name}}</td>
           <td>{{order.item_id.price}}</td>
