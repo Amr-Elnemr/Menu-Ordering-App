@@ -8,12 +8,16 @@ from django.db import IntegrityError
 from django.views import View
 from django.views.generic import ListView
 from django.utils.decorators import method_decorator
+from .forms import RegForm
+
+
 # Create your views here.
 # def home(request):
 #     return render(request, "Registration.html")
-class Home(View):
-    def get(self, request):
-        return render(request, "Registration.html")
+# class Home(View):
+#     def get(self, request):
+#         return render(request, "Registration.html")
+
 
 def signout(request):
     logout(request)
@@ -41,14 +45,32 @@ class SignIn(View):
             return redirect(index)
         return render(request, "Login.html", {"no_user": True})
 
+# def register(request):
+#     if request.method == 'GET':
+#         username = request.POST["username"]
+#         password = request.POST["psw"]
+#         try:
+#             User.objects.create_user(username=username, password=password)
+#         except IntegrityError:
+#             return render(request, "Registration.html", {"existing_name": True})
+#         return redirect(index)
+
 def register(request):
-    username = request.POST["username"]
-    password = request.POST["psw"]
-    try:
-        User.objects.create_user(username=username, password=password)
-    except IntegrityError:
-        return render(request, "Registration.html", {"existing_name": True})
-    return redirect(index)
+    if request.method == 'POST':
+        form = RegForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            try:
+                User.objects.create_user(username=username, password=password)
+            except IntegrityError:
+                return render(request, "Registration.html", {"existing_name": True, "form":form})
+            return redirect(index)
+
+    form = RegForm()
+    return render(request, "Registration.html", {'form': form})
+
+
 
 @login_required()
 def index(request):

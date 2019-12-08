@@ -12,12 +12,15 @@
         <p>Please fill in this form to create an account.</p>
         {% csrf_token %}
         <hr>
+        {{ form.as_p }}
+        <hr>
+        <!-- <hr>
             <label for="username"><b>Username</b></label>
             <input type="text" placeholder="Username" name="username" required>
 
             <label for="psw"><b>Password</b></label>
             <input type="password" placeholder="Enter Password" name="psw" required>
-        <hr>
+        <hr> -->
         {% if existing_name %}
           <p style="color:red">This username already exists, please try another one.</p>
         {% endif %}
